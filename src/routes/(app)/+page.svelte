@@ -1,15 +1,20 @@
 <script lang="ts">
-	import { ChapterOpener } from '#lib/components/showcase/index.js';
+	import { Hero, Palettes, Chapters, InUse } from '#lib/components/landing/index.js';
 </script>
 
 <svelte:head>
 	<title>Isometric</title>
 	<meta
 		name="description"
-		content="Isometric: a component library and showcase for Svelte 5, Tailwind 4 and shadcn-svelte, built on flat faces, one colour per view and a great deal of empty space."
+		content="Isometric: a component library and showcase for Svelte 5, Tailwind 4 and shadcn-svelte, drawn in three tones with one colour per view."
 	/>
 </svelte:head>
 
-<section class="bg-field text-field-foreground flex min-h-dvh flex-col items-center justify-center px-6 pt-14">
-	<ChapterOpener numeral="I" title="Isometric" subtitle="a component library for Svelte, built from faces" tone="field" />
-</section>
+<div class="flex flex-col">
+	<Hero />
+	<div class="flex flex-col gap-20 py-16 lg:gap-28 lg:py-24">
+		<Palettes />
+		<Chapters />
+	</div>
+	<InUse />
+</div>

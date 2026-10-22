@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import MenuIcon from '@lucide/svelte/icons/menu';
-	import GithubIcon from '@lucide/svelte/icons/github';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import * as Sheet from '#lib/components/ui/sheet/index.js';
 	import { cn } from '#lib/utils.js';
@@ -67,15 +66,15 @@
 		</nav>
 
 		<div class="flex items-center gap-1">
-			<Button
+			<a
 				href="https://github.com/olegpolin/isometric-svelte"
-				variant="ghost"
-				size="icon-round"
-				aria-label="Source on GitHub"
-				class={overlay ? 'text-field-foreground hover:bg-field-foreground/10' : ''}
+				class={cn(
+					'type-label focus-visible:focus-halo hidden rounded-sm px-3 py-2 outline-none transition-colors duration-(--dur-1) ease-out sm:inline-flex',
+					overlay ? 'text-field-foreground/80 hover:text-field-foreground' : 'text-muted-foreground hover:text-foreground'
+				)}
 			>
-				<GithubIcon />
-			</Button>
+				Source
+			</a>
 			<ThemeMenu class={overlay ? 'text-field-foreground hover:bg-field-foreground/10' : ''} />
 			<Sheet.Root bind:open={menuOpen}>
 				<Sheet.Trigger>
