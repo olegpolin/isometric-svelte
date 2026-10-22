@@ -40,7 +40,7 @@
 		</div>
 
 		<div class="flex flex-col gap-8">
-			<div class="grid grid-cols-3 gap-px sm:grid-cols-6" role="radiogroup" aria-label="Palette">
+			<div class="grid grid-cols-3 gap-px overflow-hidden rounded-lg sm:grid-cols-6" role="radiogroup" aria-label="Palette">
 				{#each PALETTES as p (p.id)}
 					<button
 						type="button"
@@ -50,7 +50,7 @@
 						onclick={() => setTheme(p.id)}
 						class={cn(
 							'group/tile bg-primary text-primary-foreground focus-visible:focus-halo relative flex aspect-[4/5] flex-col items-center justify-between p-3 outline-none transition-transform duration-(--dur-2) ease-settle',
-							'first:rounded-l-lg last:rounded-r-lg hover:z-10 hover:scale-[1.03]'
+							'hover:z-10 hover:scale-[1.03]'
 						)}
 					>
 						<span
