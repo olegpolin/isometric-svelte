@@ -44,7 +44,7 @@ export const CHAPTERS: Chapter[] = [
 		title: 'Selection',
 		connective: 'in which',
 		subtitle: 'one option, or several, is picked',
-		items: ['Checkbox', 'Radio group', 'Switch', 'Slider', 'Select', 'Combobox', 'Calendar', 'Date picker']
+		items: ['Checkbox', 'Radio group', 'Switch', 'Slider', 'Select', 'Combobox', 'Calendar', 'Date picker', 'Range calendar']
 	},
 	{
 		slug: 'navigation',
