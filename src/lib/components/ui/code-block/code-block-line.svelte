@@ -6,9 +6,9 @@
 		variants: {
 			variant: {
 				default: "",
-				added: "bg-muted after:content-['+']",
-				removed: "bg-destructive/10 after:text-destructive after:content-['−']",
-				highlighted: "bg-muted",
+				added: "bg-[color-mix(in_oklab,var(--success)_14%,var(--muted))] after:text-success after:content-['+']",
+				removed: "bg-[color-mix(in_oklab,var(--destructive)_12%,var(--muted))] after:text-destructive after:content-['−']",
+				highlighted: "bg-[color-mix(in_oklch,var(--muted),var(--foreground)_6%)] before:text-foreground",
 			},
 		},
 		defaultVariants: {
@@ -49,12 +49,13 @@
 <!-- An empty line holds a newline so copying a selection keeps blank lines. -->
 <span
 	bind:this={ref}
-	data-slot="code-block-line"data-variant={variant}
+	data-slot="code-block-line"
+	data-variant={variant}
 	class={cn(codeBlockLineVariants({ variant }), className)}
 	{...restProps}
 >
-	<span data-slot="code-block-line-content"class="min-w-0">
-		{#if typeof code ==="string"}
+	<span data-slot="code-block-line-content" class="min-w-0">
+		{#if typeof code === "string"}
 			{code || newline}
 		{:else if code?.length}
 			{#each code as token, index (index)}

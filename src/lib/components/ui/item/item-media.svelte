@@ -6,8 +6,8 @@
 		variants: {
 			variant: {
 				default: "bg-transparent",
-				icon: "[&_svg:not([class*='size-'])]:size-4",
-				image: "size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
+				icon: "text-foreground [&_svg:not([class*='size-'])]:size-4",
+				image: "size-10 overflow-hidden rounded-sm border border-border group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover",
 			},
 		},
 		defaultVariants: {

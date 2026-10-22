@@ -14,7 +14,7 @@
 	bind:this={ref}
 	data-slot="kbd"
 	class={cn(
-		"bg-muted text-muted-foreground in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium [&_svg:not([class*='size-'])]:size-3 pointer-events-none inline-flex items-center justify-center select-none",
+		"bg-face-top text-foreground border border-border shadow-face-sm in-data-[slot=tooltip-content]:bg-transparent in-data-[slot=tooltip-content]:text-background in-data-[slot=tooltip-content]:border-background/30 in-data-[slot=tooltip-content]:shadow-none h-5 w-fit min-w-5 gap-1 rounded-sm px-1 font-sans text-xs font-medium leading-none [&_svg:not([class*='size-'])]:size-3 pointer-events-none inline-flex items-center justify-center select-none",
 		className
 	)}
 	{...restProps}

@@ -2,12 +2,12 @@
 	import { tv, type VariantProps } from "tailwind-variants";
 
 	export const attachmentVariants = tv({
-		base: "rounded-xl w-fit focus-within:ring-1 focus-within:ring-ring/50 group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-card text-card-foreground transition-colors has-[>a,>button]:hover:bg-muted/50 data-[state=error]:border-destructive/30 data-[state=idle]:border-dashed",
+		base: "rounded-lg w-fit has-[[data-slot=attachment-trigger]:focus-visible]:focus-halo group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border border-border bg-card text-card-foreground transition-[background-color,border-color,box-shadow] duration-(--dur-1) ease-out has-[>a,>button]:hover:bg-accent data-[state=error]:border-destructive data-[state=idle]:border-dashed data-[state=idle]:border-input",
 		variants: {
 			size: {
 				default: "gap-2 has-data-[slot=attachment-content]:px-2.5 has-data-[slot=attachment-content]:py-2 has-data-[slot=attachment-media]:p-2 text-sm",
 				sm: "gap-2.5 has-data-[slot=attachment-content]:px-2 has-data-[slot=attachment-content]:py-1.5 has-data-[slot=attachment-media]:p-1.5 text-xs",
-				xs: "gap-1.5 has-data-[slot=attachment-content]:px-1.5 has-data-[slot=attachment-content]:py-1 has-data-[slot=attachment-media]:p-1 text-xs rounded-lg",
+				xs: "gap-1.5 has-data-[slot=attachment-content]:px-1.5 has-data-[slot=attachment-content]:py-1 has-data-[slot=attachment-media]:p-1 text-xs rounded-md",
 			},
 			orientation: {
 				horizontal: "min-w-40 items-center",

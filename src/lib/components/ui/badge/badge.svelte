@@ -2,15 +2,18 @@
 	import { type VariantProps, tv } from "tailwind-variants";
 
 	export const badgeVariants = tv({
-		base: "h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none",
+		base: "type-label h-5 gap-1 rounded-sm border border-transparent px-1.5 text-[11px] leading-none transition-[color,background-color,border-color,box-shadow] duration-(--dur-1) ease-out has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 [&>svg]:size-3! group/badge inline-flex w-fit shrink-0 items-center justify-center overflow-hidden whitespace-nowrap outline-none focus-visible:focus-halo aria-invalid:border-destructive [&>svg]:pointer-events-none",
 		variants: {
 			variant: {
-				default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-				secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
-				destructive: "bg-destructive/10 [a]:hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive dark:bg-destructive/20",
-				outline: "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-				ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
-				link: "text-primary underline-offset-4 hover:underline",
+				default: "bg-primary text-primary-foreground [a]:hover:bg-[color-mix(in_oklch,var(--primary),var(--foreground)_8%)]",
+				secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_8%)]",
+				outline: "border-border text-foreground [a]:hover:bg-accent",
+				destructive: "bg-destructive text-destructive-foreground [a]:hover:bg-[color-mix(in_oklch,var(--destructive),var(--foreground)_8%)]",
+				signal: "bg-signal text-signal-foreground [a]:hover:bg-[color-mix(in_oklch,var(--signal),var(--foreground)_8%)]",
+				success: "bg-success text-success-foreground [a]:hover:bg-[color-mix(in_oklch,var(--success),var(--foreground)_8%)]",
+				warning: "bg-warning text-warning-foreground [a]:hover:bg-[color-mix(in_oklch,var(--warning),var(--foreground)_8%)]",
+				ghost: "text-foreground hover:bg-accent",
+				link: "text-foreground underline decoration-primary underline-offset-4 hover:decoration-foreground",
 			},
 		},
 		defaultVariants: {

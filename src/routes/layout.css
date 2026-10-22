@@ -109,7 +109,7 @@
 	--secondary: oklch(0.3 0.027 210);
 	--muted: oklch(0.29 0.026 210);
 	--muted-foreground: oklch(0.72 0.02 205);
-	--accent: oklch(0.31 0.027 210);
+	--accent: oklch(0.35 0.028 210);
 	--border: oklch(1 0 0 / 10%);
 	--input: oklch(1 0 0 / 14%);
 
@@ -162,6 +162,7 @@
 	--signal-foreground: oklch(0.243 0.026 218);
 	--ring: var(--primary);
 	--field-foreground: oklch(0.975 0.012 95);
+	--destructive: oklch(0.42 0.16 20);
 	--chart-3: oklch(0.72 0.17 43);
 	--chart-4: oklch(0.45 0.1 28);
 	--scene-sun: oklch(0.9 0.05 20);
@@ -171,6 +172,8 @@
 :root.dark[data-theme='ember'],
 .dark [data-theme='ember'] {
 	--primary: oklch(0.64 0.2 27);
+	--destructive: oklch(0.8 0.12 30);
+	--destructive-foreground: oklch(0.21 0.028 212);
 	--signal: oklch(0.886 0.155 91);
 	--field-foreground: var(--foreground);
 }
@@ -215,6 +218,7 @@
 	--primary: oklch(0.78 0.08 273);
 	--primary-foreground: oklch(0.21 0.028 212);
 	--signal: oklch(0.72 0.18 37);
+	--chart-3: oklch(0.8 0.1 330);
 	--field: var(--background);
 	--field-foreground: var(--foreground);
 }
@@ -334,6 +338,7 @@
 
 	--animate-ring-out: ring-out var(--dur-4) var(--ease-settle) both;
 	--animate-rise: rise var(--dur-4) var(--ease-enter) both;
+	--animate-breath: breath 1.8s ease-in-out infinite;
 
 	@keyframes ring-out {
 		from {
@@ -343,6 +348,15 @@
 		to {
 			transform: scale(1.6);
 			opacity: 0;
+		}
+	}
+	@keyframes breath {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.55;
 		}
 	}
 	@keyframes rise {
@@ -416,6 +430,12 @@
 		color-mix(in oklch, var(--foreground) 9%, transparent),
 		transparent 70%
 	);
+}
+
+/* thin scrollbars in the hairline colour */
+@utility scrollbar-thin {
+	scrollbar-width: thin;
+	scrollbar-color: var(--border) transparent;
 }
 
 /* a 1px rule with a word in the gap, used by chapter openers */

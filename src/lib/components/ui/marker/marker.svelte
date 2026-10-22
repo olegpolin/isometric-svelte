@@ -2,10 +2,10 @@
 	import { tv, type VariantProps } from "tailwind-variants";
 
 	export const markerVariants = tv({
-		base: "gap-2 text-sm text-muted-foreground [a]:hover:text-foreground [a]:underline-offset-3 [a]:underline [&_svg:not([class*='size-'])]:size-4 min-h-4 text-left group/marker relative flex w-full items-center",
+		base: "gap-2 text-sm text-muted-foreground [a]:hover:text-foreground [a]:underline-offset-4 [a]:underline [a]:decoration-border [a]:transition-colors [a]:duration-(--dur-1) [a]:ease-out [&_svg:not([class*='size-'])]:size-4 min-h-4 text-left group/marker relative flex w-full items-center",
 		variants: {
 			variant: {
-				default: "",
+				default: "not-has-data-[slot=marker-icon]:before:bg-signal not-has-data-[slot=marker-icon]:before:size-1.5 not-has-data-[slot=marker-icon]:before:shrink-0 not-has-data-[slot=marker-icon]:before:rounded-full",
 				separator: "before:h-px before:min-w-0 before:flex-1 before:bg-border after:h-px after:min-w-0 after:flex-1 after:bg-border before:mr-1 after:ml-1",
 				border: "border-b border-border pb-2",
 			},

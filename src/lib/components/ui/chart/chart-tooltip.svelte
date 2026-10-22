@@ -106,7 +106,7 @@
 	<div
 		bind:this={ref}
 		class={cn(
-			"grid min-w-32 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+			"bg-popover text-popover-foreground grid min-w-32 items-start gap-1.5 rounded-lg border border-border px-2.5 py-2 text-xs shadow-float",
 			className
 		)}
 		{...restProps}
@@ -144,7 +144,7 @@
 						{:else if !hideIndicator}
 							<div
 								style="--color-bg: {indicatorColor}; --color-border: {indicatorColor};"
-								class={cn("shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)", {
+								class={cn("shrink-0 rounded-xs border-(--color-border) bg-(--color-bg)", {
 									"h-2.5 w-2.5": indicator === "dot",
 									"h-full w-1": indicator === "line",
 									"w-0 border-[1.5px] border-dashed bg-transparent": indicator === "dashed",
@@ -167,7 +167,7 @@
 								</span>
 							</div>
 							{#if item.value !== undefined}
-								<span class="font-mono font-medium text-foreground tabular-nums">
+								<span class="font-medium text-foreground tabular-nums">
 									{item.value.toLocaleString()}
 								</span>
 							{/if}

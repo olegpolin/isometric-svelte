@@ -13,11 +13,11 @@
 
 <span
 	class={cn(
-		"relative flex rounded-md border border-input shadow-xs has-focus:border-ring has-focus:ring-[3px] has-focus:ring-ring/50",
+		"bg-card border-input has-focus-visible:focus-halo relative flex rounded-md border transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-(--dur-1) ease-out",
 		className
 	)}
 >
-	<RangeCalendarPrimitive.YearSelect bind:ref class="absolute inset-0 opacity-0" {...restProps}>
+	<RangeCalendarPrimitive.YearSelect bind:ref class="bg-popover text-popover-foreground absolute inset-0 opacity-0" {...restProps}>
 		{#snippet child({ props, yearItems, selectedYearItem })}
 			<select {...props} {value}>
 				{#each yearItems as yearItem (yearItem.value)}

@@ -37,7 +37,11 @@
 		// Stroke around dots/marks when hovering
 		"[&_.lc-highlight-point]:stroke-transparent",
 		// override the default stroke color of lines
-		"[&_.lc-line]:stroke-border/50",
+		"[&_.lc-line]:stroke-border",
+		// grid lines are hairlines in the border tone
+		"[&_.lc-grid-x-rule]:stroke-border [&_.lc-grid-y-rule]:stroke-border",
+		// bars are flat faces: no outline
+		"[&_.lc-bar]:stroke-0",
 
 		// by default, layerchart shows a line intersecting the point when hovering, this hides that
 		"[&_.lc-highlight-line]:stroke-0",
@@ -61,13 +65,13 @@
 		// Legend adjustments
 		"[&_.lc-legend-swatch-button]:items-center [&_.lc-legend-swatch-button]:gap-1.5",
 		"[&_.lc-legend-swatch-group]:items-center [&_.lc-legend-swatch-group]:gap-4",
-		"[&_.lc-legend-swatch]:size-2.5 [&_.lc-legend-swatch]:rounded-[2px]",
+		"[&_.lc-legend-swatch]:size-2.5 [&_.lc-legend-swatch]:rounded-xs [&_.lc-legend-swatch-label]:text-muted-foreground",
 
 		// Labels
 		"[&_.lc-labels-text:not([fill])]:fill-foreground [&_text]:stroke-transparent",
 
 		// Tick labels on th x/y axes
-		"[&_.lc-axis-tick-label]:fill-muted-foreground [&_.lc-axis-tick-label]:font-normal",
+		"[&_.lc-axis-tick-label]:fill-muted-foreground [&_.lc-axis-tick-label]:font-normal [&_.lc-axis-tick-label]:tabular-nums",
 		"[&_.lc-tooltip-rects-g]:fill-transparent",
 		"[&_.lc-layout-svg-g]:fill-transparent",
 		"[&_.lc-root-container]:w-full",

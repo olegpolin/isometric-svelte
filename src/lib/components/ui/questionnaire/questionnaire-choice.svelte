@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Questionnaire as QuestionnairePrimitive } from "@shadcn-svelte/primitives/questionnaire";
-	import CheckIcon from '@lucide/svelte/icons/check';
+	import CheckIcon from "@lucide/svelte/icons/check";
 	import { cn } from "#lib/utils.js";
 
 	let {
@@ -15,7 +15,7 @@
 	bind:ref
 	data-slot="questionnaire-choice"
 	class={cn(
-		"border-input dark:bg-input/20 hover:bg-muted/50 data-checked:border-primary/40 data-checked:bg-muted dark:data-checked:bg-muted data-invalid:border-destructive has-[>input:focus-visible]:border-ring has-[>input:focus-visible]:ring-ring/50 gap-2.5 rounded-lg border bg-transparent px-3 py-2.5 text-sm has-[>input:focus-visible]:ring-3 group/questionnaire-choice relative flex min-h-11 cursor-pointer items-start text-start transition-colors outline-none select-none",
+		"border-border bg-card hover:bg-accent data-checked:border-muted-foreground data-checked:bg-accent data-invalid:border-destructive has-[>input:focus-visible]:focus-halo gap-2.5 rounded-lg border px-3 py-2.5 text-sm group/questionnaire-choice relative flex min-h-11 cursor-pointer items-start text-start transition-[background-color,border-color,box-shadow] duration-(--dur-1) ease-out outline-none select-none",
 		"data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-50",
 		className
 	)}
@@ -28,11 +28,11 @@
 	<span
 		aria-hidden="true"
 		data-slot="questionnaire-choice-indicator"
-		class="border-input dark:bg-input/30 group-data-checked/questionnaire-choice:bg-primary dark:group-data-checked/questionnaire-choice:bg-primary group-data-checked/questionnaire-choice:text-primary-foreground group-data-checked/questionnaire-choice:border-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[4px] pointer-events-none relative flex shrink-0 items-center justify-center border group-data-[type=radio]/questionnaire-choice:rounded-full"
+		class="border-input bg-card group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:bg-primary group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:text-primary-foreground group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:border-primary group-data-[type=radio]/questionnaire-choice:group-data-checked/questionnaire-choice:border-foreground size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-sm pointer-events-none relative flex shrink-0 items-center justify-center border transition-[background-color,border-color] duration-(--dur-1) ease-out group-data-[type=radio]/questionnaire-choice:rounded-full"
 	>
 		<span
 			data-slot="questionnaire-choice-indicator-dot"
-			class="bg-primary-foreground size-2 hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block"
+			class="bg-primary size-2 hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block"
 		></span>
 		<CheckIcon data-slot="questionnaire-choice-indicator-check" class="size-3.5 hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block" />
 	</span>
@@ -44,6 +44,6 @@
 	</QuestionnairePrimitive.ChoiceLabel>
 	<QuestionnairePrimitive.ChoiceShortcut
 		data-slot="questionnaire-choice-shortcut"
-		class="border-input bg-background text-muted-foreground size-5 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-md border font-mono text-[0.625rem] font-medium leading-none pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex"
+		class="bg-face-top border-border shadow-face-sm text-muted-foreground min-w-5 h-5 px-1 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 items-center justify-center rounded-sm border font-sans text-xs leading-none pointer-events-none ms-auto hidden shrink-0 group-data-[shortcut]/questionnaire-choice:inline-flex"
 	/>
 </QuestionnairePrimitive.Choice>

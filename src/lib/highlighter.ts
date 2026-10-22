@@ -40,7 +40,7 @@ let highlighter: Promise<HighlighterCore> | undefined;
 
 function getHighlighter() {
 	highlighter ??= createHighlighterCore({
-		themes: [import("shiki/themes/github-light.mjs"), import("shiki/themes/github-dark.mjs")],
+		themes: [import("shiki/themes/vitesse-light.mjs"), import("shiki/themes/vitesse-dark.mjs")],
 		langs: [],
 		engine: createJavaScriptRegexEngine({ forgiving: true }),
 	});
@@ -106,7 +106,7 @@ export async function loadHighlighter(language: string) {
 			const tokenize = (text: string) =>
 				shiki.codeToTokens(text, {
 					lang,
-					themes: { light: "github-light", dark: "github-dark" },
+					themes: { light: "vitesse-light", dark: "vitesse-dark" },
 					defaultColor: false,
 					grammarState: state,
 				}).tokens;

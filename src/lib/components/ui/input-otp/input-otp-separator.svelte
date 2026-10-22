@@ -16,12 +16,12 @@
 	bind:this={ref}
 	data-slot="input-otp-separator"
 	role="separator"
-	class={cn("[&_svg:not([class*='size-'])]:size-4 flex items-center", className)}
+	class={cn("text-muted-foreground [&_svg:not([class*='size-'])]:size-4 flex items-center", className)}
 	{...restProps}
 >
 	{#if children}
 		{@render children?.()}
 	{:else}
-		<MinusIcon  />
+		<MinusIcon />
 	{/if}
 </div>

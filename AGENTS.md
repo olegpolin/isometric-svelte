@@ -13,3 +13,16 @@ Most of this tech stack had a recent major version, so your training data is lik
 - Use the **svelte-code-writer** and **svelte-core-bestpractices** skills whenever you write or edit Svelte code. Remote functions are enabled, so use those. The enhanced-img plugin is added, so use that for images. Always check the official docs.
 - Use the **shadcn-svelte** skill whenever you add or change UI. The component source lives in `src/lib/components/ui` and is ours to change: add components with the CLI as needed and edit existing ones freely.
 - If a skill is missing, say so in your reply and ask the user to install it.
+
+## Design system
+
+- `docs/foundation.md` states every design decision; `src/routes/layout.css` holds the values. Read both before changing how anything looks, and update them in the same change if a decision changes.
+- Tokens only: no raw palette shades, no hex in markup. Light and dark come from the tokens, so do not add `dark:` colour overrides. Palettes live on `data-theme` and mode-watcher persists them.
+- Components follow `docs/restyle-brief.md`; catalog pages follow `docs/chapter-pages-brief.md`. New components go through the shadcn-svelte CLI first, then get restyled to the brief.
+- The site never names the works that inspired it. Describe things in their own terms (monument, rotor, key tile, emblem, chapter).
+- Copy is sentence case; labels name outcomes; no emoji, no filler adjectives.
+
+## Checks
+
+- `npm run check` must pass. Run `npx @sveltejs/mcp svelte-autofixer <file>` on every Svelte file you touch.
+- Check UI changes in the browser in light and dark mode and in at least two palettes before calling them done. The dev server config is `.claude/launch.json` ("dev").

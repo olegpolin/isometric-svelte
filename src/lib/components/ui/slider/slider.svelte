@@ -30,22 +30,18 @@ get along, so we shut typescript up by casting `value` to `never`.
 		<span
 			data-slot="slider-track"
 			data-orientation={orientation}
-			class={cn(
-				"bg-muted rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1 relative grow overflow-hidden data-horizontal:w-full data-vertical:h-full"
-			)}
+			class="bg-input relative grow overflow-hidden rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
 		>
 			<SliderPrimitive.Range
 				data-slot="slider-range"
-				class={cn(
-					"bg-primary absolute select-none data-horizontal:h-full data-vertical:w-full"
-				)}
+				class="bg-primary absolute select-none data-horizontal:h-full data-vertical:w-full"
 			/>
 		</span>
 		{#each thumbItems as thumb (thumb.index)}
 			<SliderPrimitive.Thumb
 				data-slot="slider-thumb"
 				index={thumb.index}
-				class="border-ring ring-ring/50 relative size-3 rounded-full border bg-white transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-3 focus-visible:ring-3 focus-visible:outline-hidden active:ring-3 block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50"
+				class="border-ring bg-background focus-visible:focus-halo relative block size-4 shrink-0 rounded-full border transition-[border-color,box-shadow] duration-(--dur-1) ease-out outline-none select-none before:absolute before:-inset-2 after:bg-primary after:absolute after:inset-0 after:m-auto after:size-1.5 after:rounded-full after:transition-transform after:duration-(--dur-1) after:ease-out hover:after:scale-133 active:after:scale-133 disabled:pointer-events-none disabled:opacity-50"
 			/>
 		{/each}
 	{/snippet}

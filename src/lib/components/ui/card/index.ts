@@ -4,7 +4,7 @@ import Description from "./card-description.svelte";
 import Footer from "./card-footer.svelte";
 import Header from "./card-header.svelte";
 import Title from "./card-title.svelte";
-import Root from "./card.svelte";
+import Root, { cardVariants, type CardSize, type CardVariant } from "./card.svelte";
 
 export {
 	Root,
@@ -14,6 +14,9 @@ export {
 	Header,
 	Title,
 	Action,
+	cardVariants,
+	type CardVariant,
+	type CardSize,
 	//
 	Root as Card,
 	Content as CardContent,

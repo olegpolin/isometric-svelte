@@ -27,7 +27,7 @@
 		{preventScroll}
 		data-slot="select-content"
 		class={cn(
-			"bg-popover text-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 min-w-36 rounded-lg shadow-md ring-1 duration-100 relative z-50 max-h-(--bits-select-content-available-height) origin-(--bits-select-content-transform-origin) overflow-x-hidden overflow-y-auto",
+			"bg-popover text-popover-foreground border-border shadow-float data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-bottom-2 data-open:ease-enter data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-bottom-1 data-closed:ease-exit min-w-36 rounded-lg border p-1 duration-(--dur-3) relative z-50 max-h-(--bits-select-content-available-height) origin-(--bits-select-content-transform-origin) overflow-x-hidden overflow-y-auto",
 			className
 		)}
 		{...restProps}

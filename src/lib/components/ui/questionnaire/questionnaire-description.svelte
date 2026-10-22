@@ -12,6 +12,6 @@
 <QuestionnairePrimitive.Description
 	bind:ref
 	data-slot="questionnaire-description"
-	class={cn("text-muted-foreground text-sm text-pretty text-muted-foreground", className)}
+	class={cn("text-muted-foreground text-sm text-pretty", className)}
 	{...restProps}
 />

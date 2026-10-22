@@ -13,7 +13,7 @@
 	bind:ref
 	data-slot="message-scroller-viewport"
 	class={cn(
-		"size-full min-h-0 min-w-0 scroll-fade-b scrollbar-thin scrollbar-gutter-stable overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-thumb-transparent data-autoscrolling:scrollbar-track-transparent data-pending-scroll:invisible",
+		"size-full min-h-0 min-w-0 scroll-fade-b [scrollbar-width:thin] [scrollbar-color:var(--border)_transparent] [scrollbar-gutter:stable] overflow-y-auto overscroll-contain contain-content data-autoscrolling:[scrollbar-color:transparent_transparent] data-pending-scroll:invisible",
 		className
 	)}
 	{...restProps}
