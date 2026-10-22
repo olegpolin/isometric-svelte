@@ -4,7 +4,7 @@
 	/**
 	 * A small isometric illustration built from unit cubes. `cells` are [x, y, z] grid positions
 	 * (y up). Each cube draws its three visible faces in the three face tones, painted back to
-	 * front, so a few cells read as a tiny monument. True 30° projection.
+	 * front, so a few cells read as a tiny monument. True 30° projection. `size` is the longer side.
 	 */
 	let {
 		cells,
@@ -66,8 +66,8 @@
 </script>
 
 <svg
-	width={size}
-	height={size * (box.h / box.w)}
+	width={box.w >= box.h ? size : size * (box.w / box.h)}
+	height={box.w >= box.h ? size * (box.h / box.w) : size}
 	viewBox="{box.minX - 0.02} {box.minY - 0.02} {box.w + 0.04} {box.h + 0.04}"
 	aria-hidden="true"
 	class={cn('shrink-0', className)}

@@ -49,7 +49,7 @@
 						data-theme={p.id}
 						onclick={() => setTheme(p.id)}
 						class={cn(
-							'group/tile bg-field text-field-foreground focus-visible:focus-halo relative flex aspect-[4/5] flex-col items-center justify-between p-3 outline-none transition-transform duration-(--dur-2) ease-settle',
+							'group/tile bg-primary text-primary-foreground focus-visible:focus-halo relative flex aspect-[4/5] flex-col items-center justify-between p-3 outline-none transition-transform duration-(--dur-2) ease-settle',
 							'first:rounded-l-lg last:rounded-r-lg hover:z-10 hover:scale-[1.03]'
 						)}
 					>
