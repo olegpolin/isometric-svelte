@@ -40,7 +40,7 @@
 		sunOpacity = 0,
 		paused = false,
 		class: className,
-		label = 'An isometric stone monument: two tall grey towers split by a narrow slot, a white key tile, two rotors and a pillar with stairs and a glowing emblem.'
+		label = 'Two tall grey towers joined by a lintel and a beam into an impossible triangle, which comes apart into a plain gate as the page scrolls.'
 	}: Props = $props();
 
 	let onScreen = $state(true);

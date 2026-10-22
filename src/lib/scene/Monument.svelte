@@ -1,7 +1,7 @@
 <!--
-	The monument: two towers split by a slot, a key column, a slim pillar and
-	two stepped blocks, all cubes, plus poster shapes that only compose in the
-	flat view. Nothing here is interactive; the parent drives the view. Must
+	The monument: two towers, a lintel and a beam that only close into a
+	triangle from the isometric angle, plus poster shapes that only compose in
+	the flat view. Nothing here is interactive; the parent drives the view. Must
 	be rendered inside a Threlte <Canvas>.
 -->
 <script lang="ts">
@@ -89,10 +89,5 @@
 		<T.Mesh geometry={geo.posters.disc}>
 			<T.MeshBasicMaterial color={palette.accentBlue} map={noise} transparent opacity={posterAlpha} />
 		</T.Mesh>
-		{#each geo.posters.bands as band, i (i)}
-			<T.Mesh geometry={band.geometry}>
-				<T.MeshBasicMaterial color={palette[band.color]} map={noise} transparent opacity={posterAlpha} />
-			</T.Mesh>
-		{/each}
 	{/if}
 </T.Group>

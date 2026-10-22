@@ -90,7 +90,7 @@
 		<div class={cn('field-pool absolute inset-0 -z-10', !night && 'hidden')} aria-hidden="true"></div>
 
 		<!-- the monument -->
-		<div class="absolute inset-x-0 top-14 h-[56dvh] lg:inset-y-0 lg:left-[18%] lg:right-0 lg:h-auto xl:left-[10%]">
+		<div class="absolute inset-x-0 top-14 h-[56dvh] lg:inset-y-0 lg:left-[22%] lg:right-0 lg:h-auto xl:left-[16%]">
 			{#if browser}
 				{#await import('#lib/scene/index.js') then { HeroScene }}
 					<HeroScene
