@@ -5,6 +5,7 @@
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { cn } from '#lib/utils.js';
 	import type { ScenePalette } from '#lib/scene/index.js';
+	import { heroState } from '#lib/theme/hero-state.svelte.js';
 
 	/**
 	 * The hero: one colour field, one monument, the title in the lower left. In light mode the
@@ -24,6 +25,16 @@
 	});
 
 	let night = $derived(mode.current === 'dark');
+	let flat = $derived(view === 'flat');
+
+	function setView(next: 'iso' | 'flat') {
+		view = next;
+		heroState.flat = next === 'flat';
+	}
+
+	$effect(() => () => {
+		heroState.flat = false;
+	});
 	let remaining = $derived(4 - (turns % 4));
 
 	const views = [
@@ -34,18 +45,21 @@
 
 <section
 	aria-labelledby="hero-title"
-	class="bg-field text-field-foreground relative isolate flex min-h-dvh flex-col overflow-hidden"
+	class={cn(
+		'relative isolate flex min-h-dvh flex-col overflow-hidden transition-colors duration-(--dur-5) ease-move',
+		flat ? 'bg-background text-foreground' : 'bg-field text-field-foreground'
+	)}
 >
 	<div class={cn('field-pool absolute inset-0 -z-10', !night && 'hidden')} aria-hidden="true"></div>
 
 	<!-- the monument -->
-	<div class="relative h-[62dvh] w-full lg:absolute lg:inset-0 lg:h-auto">
+	<div class="relative h-[62dvh] w-full lg:absolute lg:inset-y-0 lg:left-[10%] lg:right-0 lg:h-auto">
 		{#if browser}
 			{#await import('#lib/scene/index.js') then { HeroScene }}
 				<HeroScene
 					{palette}
 					bind:view
-					sun={night}
+					sun={night || flat}
 					paused={prefersReducedMotion.current}
 					class="size-full"
 					onturn={(n) => (turns = n)}
@@ -96,7 +110,7 @@
 					<button
 						type="button"
 						aria-pressed={view === value}
-						onclick={() => (view = value)}
+						onclick={() => setView(value)}
 						class={cn(
 							'type-label focus-visible:focus-halo h-8 rounded-md px-3 outline-none transition-colors duration-(--dur-1) ease-out',
 							view === value ? 'bg-current/15' : 'opacity-70 hover:opacity-100'

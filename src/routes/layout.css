@@ -343,7 +343,7 @@
 	text-transform: uppercase;
 	letter-spacing: 0.22em;
 	line-height: 1.05;
-	font-size: clamp(2.25rem, 1.25rem + 4vw, 5.5rem);
+	font-size: clamp(2.25rem, 1.25rem + 3.6vw, 4.75rem);
 	text-wrap: balance;
 }
 @utility type-title {

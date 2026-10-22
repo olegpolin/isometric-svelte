@@ -6,13 +6,18 @@
 	import { cn } from '#lib/utils.js';
 	import ThemeMenu from './theme-menu.svelte';
 	import Wordmark from './wordmark.svelte';
+	import { heroState } from '#lib/theme/hero-state.svelte.js';
 
 	/**
 	 * Site header. `overlay` lays it over a colour field (the landing page): no background, no
 	 * hairline, text in the field's foreground. The current destination is marked by a small
 	 * primary dot under its label, the brightest thing in the bar.
 	 */
-	let { overlay = false }: { overlay?: boolean } = $props();
+	let { overlay: overlayProp = false }: { overlay?: boolean } = $props();
+
+	/** Over the hero's flat view the field is paper, so the header reads as if it were not overlaid. */
+	let overlay = $derived(overlayProp && !heroState.flat);
+	let floating = $derived(overlayProp);
 
 	const destinations = [
 		{ href: '/components', label: 'Components' },
@@ -30,9 +35,8 @@
 	data-slot="site-header"
 	class={cn(
 		'z-40 w-full',
-		overlay
-			? 'text-field-foreground absolute inset-x-0 top-0'
-			: 'bg-background/95 text-foreground border-border sticky top-0 border-b'
+		floating ? 'absolute inset-x-0 top-0' : 'bg-background/95 border-border sticky top-0 border-b',
+		overlay ? 'text-field-foreground' : 'text-foreground'
 	)}
 >
 	<div class="mx-auto flex h-14 w-full max-w-[1440px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
