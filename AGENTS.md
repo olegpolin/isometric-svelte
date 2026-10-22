@@ -25,4 +25,4 @@ Most of this tech stack had a recent major version, so your training data is lik
 ## Checks
 
 - `npm run check` must pass. Run `npx @sveltejs/mcp svelte-autofixer <file>` on every Svelte file you touch.
-- Check UI changes in the browser in light and dark mode and in at least two palettes before calling them done. The dev server config is `.claude/launch.json` ("dev").
+- Check UI changes in the browser in light and dark mode and in at least two palettes before calling them done. Start the dev server with `npm run dev`.
