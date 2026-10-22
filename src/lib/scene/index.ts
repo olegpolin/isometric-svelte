@@ -7,4 +7,3 @@ export {
 	SCENE_PALETTE_CSS_VARS,
 	type ScenePalette
 } from './palette.js';
-export { RotorControl } from './rotor.svelte.js';

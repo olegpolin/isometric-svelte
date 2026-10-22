@@ -2,15 +2,14 @@
 	The monument: two towers split by a slot, a cradle with a half-disc rotor,
 	a socket with a disc rotor, corner caps with lamps, a pillar with stairs
 	and an emblem, plus poster shapes that only compose in the flat view.
-	Must be rendered inside a Threlte <Canvas>.
+	Nothing here is interactive; the parent drives the view. Must be rendered
+	inside a Threlte <Canvas>.
 -->
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { T, useTask, useThrelte } from '@threlte/core';
-	import { useCursor } from '@threlte/extras';
 	import { AdditiveBlending, CircleGeometry, Quaternion, Vector3 } from 'three';
-	import { prefersReducedMotion, Tween } from 'svelte/motion';
-	import { cubicOut } from 'svelte/easing';
+	import { prefersReducedMotion } from 'svelte/motion';
 	import { DEFAULT_SCENE_PALETTE, type ScenePalette } from './palette.js';
 	import {
 		applyGrainUVs,
@@ -32,36 +31,26 @@
 		SUN_RADIUS
 	} from './monument-geometry.js';
 	import { viewDirection, viewQuaternion } from './rig.js';
-	import { RotorControl } from './rotor.svelte.js';
 
 	interface Props {
 		palette?: ScenePalette;
-		/** Target view. Ignored when `viewProgress` is given. */
-		view?: 'iso' | 'flat';
-		/** 0 = isometric, 1 = flat side view. Lets a parent animate the camera and the monument together. */
+		/** 0 = isometric, 1 = flat side view. The parent animates the camera and the monument together. */
 		viewProgress?: number;
-		/** Show the background disc. */
-		sun?: boolean;
+		/** Rotor angle in radians; the rims are repainted so they stay lit from above. */
+		rotorAngle?: number;
+		/** Opacity of the background disc, 0 to 1 (0 hides it). */
+		sunOpacity?: number;
 		/** Stop all idle animation. */
 		paused?: boolean;
-		/** Shared rotor state (for drag-to-turn from a parent). Created internally when omitted. */
-		rotor?: RotorControl;
-		/** Called with the committed quarter-turn count. Only used with the internal rotor. */
-		onturn?: (quarterTurns: number) => void;
 	}
 
 	let {
 		palette = DEFAULT_SCENE_PALETTE,
-		view = 'iso',
-		viewProgress,
-		sun = false,
-		paused = false,
-		rotor: sharedRotor,
-		onturn
+		viewProgress = 0,
+		rotorAngle = 0,
+		sunOpacity = 0,
+		paused = false
 	}: Props = $props();
-
-	const ownRotor = new RotorControl(() => onturn);
-	const rotor = $derived(sharedRotor ?? ownRotor);
 
 	const { invalidate } = useThrelte();
 
@@ -94,7 +83,7 @@
 	const Z_AXIS = new Vector3(0, 0, 1);
 	const leftTurn = new Quaternion();
 	const rightTurn = new Quaternion();
-	const spin = $derived(-rotor.angle);
+	const spin = $derived(-rotorAngle);
 	$effect(() => {
 		geo.leftRotor.repaint(resolved, leftTurn.setFromAxisAngle(X_AXIS, spin));
 		geo.rightRotor.repaint(resolved, rightTurn.setFromAxisAngle(Z_AXIS, spin));
@@ -103,7 +92,7 @@
 
 	/* ------------------------------------------------------------- view */
 
-	const progress = $derived(viewProgress ?? (view === 'flat' ? 1 : 0));
+	const progress = $derived(viewProgress);
 	const billboard = $derived(viewQuaternion(progress).toArray() as [number, number, number, number]);
 	const direction = $derived(viewDirection(progress));
 	const sunPosition = $derived(
@@ -115,25 +104,6 @@
 		return t * t * (3 - 2 * t);
 	}
 	const posterAlpha = $derived(smoothstep(0.55, 0.95, progress));
-
-	/* ------------------------------------------------------ interaction */
-
-	const cursor = useCursor('grab');
-	let hoverLeft = $state(false);
-	let hoverRight = $state(false);
-	const liftOptions = {
-		duration: () => (prefersReducedMotion.current ? 0 : 160),
-		easing: cubicOut
-	};
-	const liftLeft = Tween.of(() => (hoverLeft ? 0.03 : 0), liftOptions);
-	const liftRight = Tween.of(() => (hoverRight ? 0.03 : 0), liftOptions);
-
-	function hover(side: 'left' | 'right', on: boolean) {
-		if (side === 'left') hoverLeft = on;
-		else hoverRight = on;
-		if (on) cursor.onPointerEnter();
-		else if (!hoverLeft && !hoverRight) cursor.onPointerLeave();
-	}
 
 	/* ----------------------------------------------------------- idle */
 
@@ -150,8 +120,7 @@
 		idle ? Math.sin((clock * Math.PI * 2) / 3) * 0.06 + Math.sin(clock * 7.3) * 0.02 : 0
 	);
 
-	const pulseScale = $derived(prefersReducedMotion.current ? 1 : 1 + rotor.pulse.current * 0.25);
-	const emblemGlow = $derived(0.55 + rotor.pulse.current * 0.45);
+	const emblemGlow = 0.6;
 
 	function lampFacing(face: 'x' | 'z') {
 		const f = face === 'x' ? direction.x : direction.z;
@@ -165,40 +134,22 @@
 </script>
 
 <T.Group>
-	{#if sun}
+	{#if sunOpacity > 0.001}
 		<T.Mesh geometry={sunGeometry} position={sunPosition} quaternion={billboard} renderOrder={-1}>
-			<T.MeshBasicMaterial color={palette.sun} map={noise} />
+			<T.MeshBasicMaterial color={palette.sun} map={noise} transparent opacity={sunOpacity} />
 		</T.Mesh>
 	{/if}
 
 	<T.Mesh geometry={geo.stone.geometry} material={stone} />
 
 	<!-- Half-disc rotor resting in the cradle -->
-	<T.Group
-		position={[LEFT_ROTOR.position[0], LEFT_ROTOR.position[1] + liftLeft.current, LEFT_ROTOR.position[2]]}
-	>
-		<T.Mesh
-			geometry={geo.leftRotor.geometry}
-			material={stone}
-			rotation.x={spin}
-			onclick={() => rotor.step(1)}
-			onpointerenter={() => hover('left', true)}
-			onpointerleave={() => hover('left', false)}
-		/>
+	<T.Group position={LEFT_ROTOR.position}>
+		<T.Mesh geometry={geo.leftRotor.geometry} material={stone} rotation.x={spin} />
 	</T.Group>
 
 	<!-- Disc rotor standing in the socket -->
-	<T.Group
-		position={[RIGHT_ROTOR.position[0], RIGHT_ROTOR.position[1] + liftRight.current, RIGHT_ROTOR.position[2]]}
-	>
-		<T.Mesh
-			geometry={geo.rightRotor.geometry}
-			material={stone}
-			rotation.z={spin}
-			onclick={() => rotor.step(1)}
-			onpointerenter={() => hover('right', true)}
-			onpointerleave={() => hover('right', false)}
-		/>
+	<T.Group position={RIGHT_ROTOR.position}>
+		<T.Mesh geometry={geo.rightRotor.geometry} material={stone} rotation.z={spin} />
 	</T.Group>
 
 	<!-- Porthole lamps on the corner caps -->
@@ -229,7 +180,6 @@
 	<T.Group
 		position={[EMBLEM_CENTER[0], EMBLEM_CENTER[1] + bob, EMBLEM_CENTER[2]]}
 		quaternion={billboard}
-		scale={pulseScale}
 	>
 		<T.Sprite scale={[1.5, 1.5, 1]} position.z={-0.05} renderOrder={4}>
 			<T.SpriteMaterial

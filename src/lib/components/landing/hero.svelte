@@ -8,12 +8,13 @@
 	import { heroState } from '#lib/theme/hero-state.svelte.js';
 
 	/**
-	 * The hero: one colour field, one monument, the title in the lower left. In light mode the
-	 * field is the palette colour; in dark mode the field is night and the sun disc comes out.
+	 * The hero is a scroll stage: the viewport stays pinned while the page scrolls through the
+	 * stage, and that scroll position drives the monument frame by frame from its isometric view
+	 * to a flat elevation. As it flattens, the field fades to paper and the sun disc comes out, so
+	 * the end state reads as a poster. In dark mode the field is night from the start and the sun
+	 * is always out.
 	 */
-	let view = $state<'iso' | 'flat'>('iso');
 	let palette = $state<ScenePalette>();
-	let turns = $state(0);
 
 	// Re-read the scene tones whenever the mode or palette changes (the CSS has already updated).
 	$effect(() => {
@@ -25,100 +26,124 @@
 	});
 
 	let night = $derived(mode.current === 'dark');
-	let flat = $derived(view === 'flat');
 
-	function setView(next: 'iso' | 'flat') {
-		view = next;
-		heroState.flat = next === 'flat';
+	/** 0 at the top of the page, 1 once the stage has been scrolled through. */
+	let progress = $state(0);
+	let stage = $state<HTMLElement>();
+	let frame = 0;
+
+	function measure() {
+		if (!stage) return;
+		const rect = stage.getBoundingClientRect();
+		const range = rect.height - window.innerHeight;
+		const raw = range > 0 ? -rect.top / range : 0;
+		progress = Math.min(1, Math.max(0, raw));
 	}
 
-	$effect(() => () => {
-		heroState.flat = false;
-	});
-	let remaining = $derived(4 - (turns % 4));
+	function onscroll() {
+		if (frame) return;
+		frame = requestAnimationFrame(() => {
+			frame = 0;
+			measure();
+		});
+	}
 
-	const views = [
-		{ value: 'iso', label: 'Isometric' },
-		{ value: 'flat', label: 'Elevation' }
-	] as const;
+	$effect(() => {
+		measure();
+		return () => cancelAnimationFrame(frame);
+	});
+
+	const smooth = (t: number) => {
+		const x = Math.min(1, Math.max(0, t));
+		return x * x * (3 - 2 * x);
+	};
+
+	/** Camera blend: eased at both ends so the move starts and stops like a mechanism. */
+	let view = $derived(smooth(progress));
+	/** The disc fades in through the middle of the move. */
+	let sunOpacity = $derived(night ? 1 : smooth((progress - 0.3) / 0.4));
+	let flat = $derived(progress > 0.5);
+	let fieldColor = $derived(
+		night
+			? 'var(--background)'
+			: `color-mix(in oklch, var(--background) ${Math.round(view * 100)}%, var(--field))`
+	);
+
+	$effect(() => {
+		heroState.flat = flat;
+		return () => {
+			heroState.flat = false;
+		};
+	});
 </script>
 
-<section
-	aria-labelledby="hero-title"
-	class={cn(
-		'relative isolate flex min-h-dvh flex-col overflow-hidden transition-colors duration-(--dur-5) ease-move',
-		flat ? 'bg-background text-foreground' : 'bg-field text-field-foreground'
-	)}
->
-	<div class={cn('field-pool absolute inset-0 -z-10', !night && 'hidden')} aria-hidden="true"></div>
+<svelte:window {onscroll} onresize={measure} />
 
-	<!-- the monument -->
-	<div class="relative h-[62dvh] w-full lg:absolute lg:inset-y-0 lg:left-[10%] lg:right-0 lg:h-auto">
-		{#if browser}
-			{#await import('#lib/scene/index.js') then { HeroScene }}
-				<HeroScene
-					{palette}
-					bind:view
-					sun={night || flat}
-					paused={prefersReducedMotion.current}
-					class="size-full"
-					onturn={(n) => (turns = n)}
-				/>
-			{/await}
-		{/if}
-	</div>
-
-	<!-- the lockup -->
+<section bind:this={stage} aria-labelledby="hero-title" class="relative h-[260dvh]">
 	<div
-		class="pointer-events-none relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-end gap-10 px-4 pt-6 pb-10 sm:px-6 lg:min-h-dvh lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:pt-14 lg:pb-14"
+		class={cn(
+			'sticky top-0 isolate flex h-dvh flex-col overflow-hidden transition-colors duration-(--dur-3) ease-out',
+			flat ? 'text-foreground' : 'text-field-foreground'
+		)}
+		style:background-color={fieldColor}
 	>
-		<div class="animate-rise pointer-events-auto flex max-w-xl flex-col gap-6 motion-reduce:animate-none">
-			<div class="flex flex-col gap-3">
-				<span class="type-eyebrow opacity-80">Svelte 5 · Tailwind 4 · shadcn-svelte</span>
-				<h1 id="hero-title" class="type-display">Isometric</h1>
-			</div>
-			<p class="max-w-[46ch] text-base sm:text-lg">
-				A component library drawn in three tones. Sixty-three components for Svelte, every one
-				restyled at the source: flat faces lit from the upper left, one colour per view, and room
-				left empty on purpose.
-			</p>
-			<div class="flex flex-wrap items-center gap-3">
-				<Button
-					href="/components"
-					variant="outline"
-					size="lg"
-					class="border-current bg-transparent text-current hover:bg-current/10 hover:text-current"
-				>
-					Browse the components
-				</Button>
-				<Button href="/dashboard" variant="link" size="lg" class="text-current">Open the dashboard</Button>
-			</div>
+		<div class={cn('field-pool absolute inset-0 -z-10', !night && 'hidden')} aria-hidden="true"></div>
+
+		<!-- the monument -->
+		<div class="absolute inset-x-0 top-14 h-[56dvh] lg:inset-y-0 lg:left-[10%] lg:right-0 lg:h-auto">
+			{#if browser}
+				{#await import('#lib/scene/index.js') then { HeroScene }}
+					<HeroScene
+						{palette}
+						progress={view}
+						{sunOpacity}
+						paused={prefersReducedMotion.current}
+						class="size-full"
+					/>
+				{/await}
+			{/if}
+			<!-- on small screens the towers fade into the field instead of ending at a cut -->
+			<div
+				class="pointer-events-none absolute inset-x-0 bottom-0 h-[22%] lg:hidden"
+				style:background-image="linear-gradient(to top, {fieldColor}, transparent)"
+				aria-hidden="true"
+			></div>
 		</div>
 
-		<div class="pointer-events-auto flex flex-col items-start gap-3 text-sm lg:items-end lg:text-right">
-			<p class="max-w-[28ch] opacity-80">
-				{#if turns === 0}
-					Drag across the towers, or click a rotor, to turn the mechanism.
-				{:else if turns % 4 === 0}
-					A full turn. The emblem noticed.
-				{:else}
-					{turns} quarter {turns === 1 ? 'turn' : 'turns'}. {remaining === 1 ? 'One more makes' : `${remaining} more make`} a circle.
-				{/if}
-			</p>
-			<div class="flex items-center gap-1" role="group" aria-label="View">
-				{#each views as { value, label } (value)}
-					<button
-						type="button"
-						aria-pressed={view === value}
-						onclick={() => setView(value)}
-						class={cn(
-							'type-label focus-visible:focus-halo h-8 rounded-md px-3 outline-none transition-colors duration-(--dur-1) ease-out',
-							view === value ? 'bg-current/15' : 'opacity-70 hover:opacity-100'
-						)}
+		<!-- the lockup -->
+		<div
+			class="pointer-events-none absolute inset-x-0 bottom-0 mx-auto flex w-full max-w-[1440px] flex-col justify-end gap-8 px-4 pb-8 sm:px-6 lg:inset-0 lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:pb-14"
+		>
+			<div class="animate-rise pointer-events-auto flex max-w-xl flex-col gap-5 motion-reduce:animate-none lg:gap-6">
+				<div class="flex flex-col gap-3">
+					<span class="type-eyebrow opacity-80">Svelte 5 · Tailwind 4 · shadcn-svelte</span>
+					<h1 id="hero-title" class="type-display">Isometric</h1>
+				</div>
+				<p class="max-w-[46ch] text-sm sm:text-base lg:text-lg">
+					A component library drawn in three tones. Sixty-three components for Svelte, every one
+					restyled at the source: flat faces lit from the upper left, one colour per view, and room
+					left empty on purpose.
+				</p>
+				<div class="flex flex-wrap items-center gap-3">
+					<Button
+						href="/components"
+						variant="outline"
+						size="lg"
+						class="border-current bg-transparent text-current hover:bg-current/10 hover:text-current"
 					>
-						{label}
-					</button>
-				{/each}
+						Browse the components
+					</Button>
+					<Button href="/dashboard" variant="link" size="lg" class="text-current">Open the dashboard</Button>
+				</div>
+			</div>
+
+			<div
+				class="hidden flex-col items-center gap-3 transition-opacity duration-(--dur-2) ease-out lg:flex"
+				style:opacity={Math.max(0, 1 - progress * 4)}
+				aria-hidden="true"
+			>
+				<span class="type-label opacity-80">Scroll</span>
+				<span class="h-10 w-px bg-current opacity-60"></span>
 			</div>
 		</div>
 	</div>

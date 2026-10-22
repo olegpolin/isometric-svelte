@@ -27,7 +27,7 @@ npm run dev
 - `docs/foundation.md` is the one file every page reads from: the idea, colour roles, palettes, face tones, shape, motion, typography, icons and voice.
 - `src/routes/layout.css` holds every token: the two modes, the six palettes on `data-theme`, the scene tones the WebGL monument reads, the easing curves and the type utilities.
 - `src/lib/components/ui/` is the component source. It started from `shadcn-svelte add --all` and was then restyled component by component; `docs/restyle-brief.md` is the brief that was followed.
-- `src/lib/scene/` is the monument: unlit three-tone geometry, grain on faces only, two rotors that turn in quarter steps, and a camera that collapses the isometric view into a flat elevation.
+- `src/lib/scene/` is the monument: unlit three-tone geometry, grain on faces only, and a camera that collapses the isometric view into a flat elevation frame by frame as the page scrolls.
 - `src/lib/components/app/` is the site shell (header with the ring-and-dot theme menu, footer, wordmark, the voxel glyph).
 - `src/lib/components/showcase/` holds the Page, Section and Demo primitives the catalog is written with; `src/lib/catalog.ts` lists the chapters.
 - `src/routes/(app)/` is the site: landing, `components/` (the catalog), `dashboard/`.
