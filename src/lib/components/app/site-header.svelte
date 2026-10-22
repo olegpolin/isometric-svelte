@@ -9,8 +9,8 @@
 	import { heroState } from '#lib/theme/hero-state.svelte.js';
 
 	/**
-	 * Site header. `overlay` lays it over a colour field (the landing page): no background, no
-	 * hairline, text in the field's foreground. The current destination is marked by a small
+	 * Site header. It sticks to the top of the viewport. `overlay` lays it over a colour field (the
+	 * landing page) with no background and no hairline, pulling the page up underneath it. The current destination is marked by a small
 	 * primary dot under its label, the brightest thing in the bar.
 	 */
 	let { overlay: overlayProp = false }: { overlay?: boolean } = $props();
@@ -35,7 +35,8 @@
 	data-slot="site-header"
 	class={cn(
 		'z-40 w-full',
-		floating ? 'absolute inset-x-0 top-0' : 'bg-background/95 border-border sticky top-0 border-b',
+		floating ? '-mb-14' : 'bg-background/95 border-border border-b',
+		'sticky top-0',
 		overlay ? 'text-field-foreground' : 'text-foreground'
 	)}
 >
