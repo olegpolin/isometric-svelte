@@ -70,9 +70,9 @@
 
 	<!-- the lockup -->
 	<div
-		class="relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-end gap-10 px-4 pt-6 pb-10 sm:px-6 lg:min-h-dvh lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:pt-14 lg:pb-14"
+		class="pointer-events-none relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col justify-end gap-10 px-4 pt-6 pb-10 sm:px-6 lg:min-h-dvh lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:pt-14 lg:pb-14"
 	>
-		<div class="animate-rise flex max-w-xl flex-col gap-6 motion-reduce:animate-none">
+		<div class="animate-rise pointer-events-auto flex max-w-xl flex-col gap-6 motion-reduce:animate-none">
 			<div class="flex flex-col gap-3">
 				<span class="type-eyebrow opacity-80">Svelte 5 · Tailwind 4 · shadcn-svelte</span>
 				<h1 id="hero-title" class="type-display">Isometric</h1>
@@ -95,7 +95,7 @@
 			</div>
 		</div>
 
-		<div class="flex flex-col items-start gap-3 text-sm lg:items-end lg:text-right">
+		<div class="pointer-events-auto flex flex-col items-start gap-3 text-sm lg:items-end lg:text-right">
 			<p class="max-w-[28ch] opacity-80">
 				{#if turns === 0}
 					Drag across the towers, or click a rotor, to turn the mechanism.
