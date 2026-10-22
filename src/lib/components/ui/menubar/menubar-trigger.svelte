@@ -12,6 +12,6 @@
 <MenubarPrimitive.Trigger
 	bind:ref
 	data-slot="menubar-trigger"
-	class={cn("hover:bg-muted aria-expanded:bg-muted rounded-sm px-1.5 py-[2px] text-sm font-medium flex items-center outline-hidden select-none", className)}
+	class={cn("flex h-7 items-center rounded-sm px-2 text-sm outline-hidden select-none transition-colors duration-(--dur-1) ease-out hover:bg-accent focus-visible:focus-halo data-[state=open]:bg-accent aria-expanded:bg-accent", className)}
 	{...restProps}
 />

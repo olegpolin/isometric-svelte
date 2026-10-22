@@ -23,7 +23,7 @@
 	data-slot="sidebar-trigger"
 	variant="ghost"
 	size="icon-sm"
-	class={cn(className)}
+	class={cn("rounded-full", className)}
 	type="button"
 	onclick={(e) => {
 		onclick?.(e);

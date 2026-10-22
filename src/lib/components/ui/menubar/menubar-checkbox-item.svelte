@@ -28,19 +28,19 @@
 	data-slot="menubar-checkbox-item"
 	data-inset={inset}
 	class={cn(
-		"focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-1.5 rounded-md py-1 pr-1.5 pl-7 text-sm data-inset:pl-7 relative flex cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
+		"relative flex min-h-8 cursor-default items-center gap-2 rounded-sm pr-2 pl-8 py-1.5 text-sm outline-hidden select-none transition-colors duration-(--dur-1) ease-out focus:bg-accent focus:text-accent-foreground data-highlighted:bg-accent data-highlighted:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground focus:[&_svg:not([class*='text-'])]:text-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-foreground",
 		className
 	)}
 	{...restProps}
 >
 	{#snippet children({ checked: checked, indeterminate: indeterminate })}
 		<span
-			class="left-1.5 size-4 [&_svg:not([class*='size-'])]:size-4 pointer-events-none absolute flex items-center justify-center"
+			class="pointer-events-none absolute left-2 flex size-4 items-center justify-center"
 		>
 			{#if indeterminate}
-				<MinusIcon  />
+				<MinusIcon class="text-foreground" />
 			{:else if checked}
-				<CheckIcon  />
+				<CheckIcon class="text-foreground" />
 			{/if}
 		</span>
 		{@render childrenProp?.()}

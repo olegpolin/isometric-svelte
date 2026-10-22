@@ -2,11 +2,11 @@
 	import { tv, type VariantProps } from "tailwind-variants";
 
 	export const sidebarMenuButtonVariants = tv({
-		base: "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-left text-sm transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 data-active:font-medium peer/menu-button group/menu-button flex w-full items-center overflow-hidden outline-hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate",
+		base: "peer/menu-button group/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-sm py-2 ps-4.5 pe-2 text-left text-sm text-muted-foreground outline-hidden transition-[width,height,padding,color,background-color,box-shadow] duration-(--dur-1) ease-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:focus-halo active:bg-sidebar-accent data-active:font-medium data-active:text-foreground data-open:hover:bg-sidebar-accent disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pe-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! group-data-[collapsible=icon]:before:hidden group-data-[collapsible=icon]:data-active:bg-sidebar-accent [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate before:pointer-events-none before:absolute before:start-1.5 before:top-1/2 before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-primary before:scale-0 before:transition-transform before:duration-(--dur-2) before:ease-move data-active:before:scale-100",
 		variants: {
 			variant: {
-				default: "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-				outline: "bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_var(--sidebar-border)] hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
+				default: "",
+				outline: "border border-sidebar-border bg-background",
 			},
 			size: {
 				default: "h-8 text-sm",

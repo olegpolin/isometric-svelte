@@ -2,15 +2,15 @@
 	import { tv, type VariantProps } from "tailwind-variants";
 
 	export const tabsListVariants = tv({
-		base: "rounded-lg p-[3px] group-data-horizontal/tabs:h-8 data-[variant=line]:rounded-none group/tabs-list inline-flex w-fit items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
+		base: "group/tabs-list inline-flex items-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col group-data-vertical/tabs:items-stretch",
 		variants: {
 			variant: {
-				default: "bg-muted",
-				line: "gap-1 bg-transparent",
+				line: "w-full justify-start gap-5 border-b border-border group-data-vertical/tabs:w-fit group-data-vertical/tabs:gap-0 group-data-vertical/tabs:border-b-0 group-data-vertical/tabs:border-s",
+				segment: "w-fit justify-center gap-0.5 rounded-md bg-muted p-0.5",
 			},
 		},
 		defaultVariants: {
-			variant: "default",
+			variant: "line",
 		},
 	});
 
@@ -20,15 +20,18 @@
 <script lang="ts">
 	import { Tabs as TabsPrimitive } from "bits-ui";
 	import { cn } from "#lib/utils.js";
+	import { setTabsVariant } from "./context.js";
 
 	let {
 		ref = $bindable(null),
-		variant = "default",
+		variant = "line",
 		class: className,
 		...restProps
 	}: TabsPrimitive.ListProps & {
 		variant?: TabsListVariant;
 	} = $props();
+
+	setTabsVariant(() => variant ?? "line");
 </script>
 
 <TabsPrimitive.List

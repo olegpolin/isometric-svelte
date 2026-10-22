@@ -28,8 +28,8 @@
 	data-active={isActive}
 	data-size={size}
 	class={cn(
-		buttonVariants({ size, variant: isActive ? "outline" : "ghost" }),
-		"",
+		buttonVariants({ size, variant: "ghost" }),
+		"tabular-nums text-muted-foreground hover:text-foreground data-active:border-border data-active:bg-face-top data-active:text-foreground data-active:shadow-face-sm data-active:hover:bg-face-top data-active:active:translate-y-0.5 data-active:active:shadow-none",
 		className
 	)}
 	{...restProps}

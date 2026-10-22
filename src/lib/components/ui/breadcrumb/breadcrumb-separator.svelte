@@ -16,12 +16,12 @@
 	data-slot="breadcrumb-separator"
 	role="presentation"
 	aria-hidden="true"
-	class={cn("[&>svg]:size-3.5", className)}
+	class={cn("text-muted-foreground [&>svg]:size-3.5", className)}
 	{...restProps}
 >
 	{#if children}
 		{@render children?.()}
 	{:else}
-		<ChevronRightIcon class="cn-rtl-flip" />
+		<ChevronRightIcon class="cn-rtl-flip" strokeWidth={1.5} />
 	{/if}
 </li>

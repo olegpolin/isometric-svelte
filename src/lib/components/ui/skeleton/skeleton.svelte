@@ -12,6 +12,18 @@
 <div
 	bind:this={ref}
 	data-slot="skeleton"
-	class={cn("bg-muted rounded-md animate-pulse", className)}
+	class={cn("skeleton-breath rounded-md bg-muted", className)}
 	{...restProps}
 ></div>
+
+<style>
+	/* a slow breath rather than a pulse */
+	.skeleton-breath {
+		animation: skeleton-breath 1.8s ease-in-out infinite;
+	}
+	@keyframes skeleton-breath {
+		50% {
+			opacity: 0.5;
+		}
+	}
+</style>

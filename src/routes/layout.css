@@ -115,7 +115,7 @@
 
 	--face-top: oklch(0.33 0.028 210);
 	--face-side: oklch(0.26 0.028 211);
-	--face-shadow: oklch(0.165 0.026 212);
+	--face-shadow: oklch(0.12 0.022 212);
 
 	--destructive: oklch(0.68 0.19 25);
 	--destructive-foreground: oklch(0.21 0.028 212);

@@ -19,7 +19,7 @@
 
 	const mergedProps = $derived({
 		class: cn(
-			"text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:shrink-0",
+			"relative flex h-7 min-w-0 -translate-x-px items-center gap-2 rounded-sm px-2 text-muted-foreground outline-hidden transition-[color,background-color,box-shadow] duration-(--dur-1) ease-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:focus-halo active:bg-sidebar-accent data-active:font-medium data-active:text-foreground data-[size=md]:text-sm data-[size=sm]:text-xs group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-muted-foreground before:pointer-events-none before:absolute before:-start-[12.5px] before:top-1/2 before:size-1.5 before:-translate-y-1/2 before:rounded-full before:bg-primary before:scale-0 before:transition-transform before:duration-(--dur-2) before:ease-move data-active:before:scale-100",
 			className
 		),
 		"data-slot": "sidebar-menu-sub-button",
