@@ -21,14 +21,12 @@ export const CODE = {
 	tabsLine: `<Tabs.Root bind:value={projectTab}>
 	<Tabs.List>
 		<Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-		<Tabs.Trigger value="deployments">Deployments</Tabs.Trigger>
+		<Tabs.Trigger value="builds">Builds</Tabs.Trigger>
 		<Tabs.Trigger value="analytics">Analytics</Tabs.Trigger>
-		<Tabs.Trigger value="settings">Settings</Tabs.Trigger>
 	</Tabs.List>
 	<Tabs.Content value="overview">Observatory is live in four regions. The last deploy finished 6 minutes ago.</Tabs.Content>
-	<Tabs.Content value="deployments">214 deployments this month, 9 of them to production.</Tabs.Content>
+	<Tabs.Content value="builds">214 builds this month, 9 of them promoted to production.</Tabs.Content>
 	<Tabs.Content value="analytics">1,284,903 requests and 38.4 GB served in the last 30 days.</Tabs.Content>
-	<Tabs.Content value="settings">Build command, output directory and environment variables.</Tabs.Content>
 </Tabs.Root>`,
 
 	tabsSegment: `<Tabs.Root value="preview" class="w-full max-w-md">
@@ -230,7 +228,7 @@ export const CODE = {
 
 	navIndicator: `<NavigationMenu.Root>
 	<NavigationMenu.List>
-		<NavigationMenu.Item>
+		<NavigationMenu.Item class="static">
 			<NavigationMenu.Trigger>Regions</NavigationMenu.Trigger>
 			<NavigationMenu.Content>
 				<ul class="flex w-64 flex-col gap-1">
@@ -246,7 +244,7 @@ export const CODE = {
 				</ul>
 			</NavigationMenu.Content>
 		</NavigationMenu.Item>
-		<NavigationMenu.Item>
+		<NavigationMenu.Item class="static">
 			<NavigationMenu.Trigger>Atlas</NavigationMenu.Trigger>
 			<NavigationMenu.Content>
 				<ul class="flex w-56 flex-col gap-1">

@@ -32,7 +32,7 @@
 	} = $props();
 
 	let showCode = $state(false);
-	let slug = $derived(label.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
+	const uid = $props.id();
 </script>
 
 <figure class="flex min-w-0 flex-col gap-2" data-slot="demo">
@@ -51,7 +51,7 @@
 		{@render children()}
 	</div>
 	{#if code && showCode}
-		<div id="demo-code-{slug}" transition:slide={{ duration: 200 }}>
+		<div id="demo-code-{uid}" transition:slide={{ duration: 200 }}>
 			<CodeBlock.Root size="sm">
 				<CodeBlock.Header>
 					<CodeBlock.Title>{lang}</CodeBlock.Title>
@@ -74,7 +74,7 @@
 					variant="ghost"
 					size="xs"
 					aria-expanded={showCode}
-					aria-controls="demo-code-{slug}"
+					aria-controls="demo-code-{uid}"
 					onclick={() => (showCode = !showCode)}
 				>
 					<CodeIcon data-icon="inline-start" />
