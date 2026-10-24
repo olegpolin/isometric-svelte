@@ -6,7 +6,7 @@
 		{ href: '/components/foundations', label: 'Foundations' },
 		{ href: '/dashboard', label: 'Dashboard' },
 		{ href: '/mobile', label: 'Mobile' },
-		{ href: 'https://github.com/olegpolin/isometric-svelte', label: 'Source' }
+		{ href: 'https://github.com/olegpolin/isometric-svelte', label: 'Source', external: true }
 	];
 </script>
 
@@ -25,6 +25,8 @@
 			{#each links as l (l.href)}
 				<a
 					href={l.href}
+					target={l.external ? '_blank' : undefined}
+					rel={l.external ? 'noopener' : undefined}
 					class="type-label text-muted-foreground hover:text-foreground focus-visible:focus-halo rounded-sm py-1 outline-none transition-colors duration-(--dur-1) ease-out"
 				>
 					{l.label}

@@ -73,6 +73,8 @@
 		<div class="flex items-center gap-1">
 			<a
 				href="https://github.com/olegpolin/isometric-svelte"
+				target="_blank"
+				rel="noopener"
 				class={cn(
 					'type-label focus-visible:focus-halo hidden rounded-sm px-3 py-2 outline-none transition-colors duration-(--dur-1) ease-out sm:inline-flex',
 					overlay ? 'text-field-foreground/80 hover:text-field-foreground' : 'text-muted-foreground hover:text-foreground'
