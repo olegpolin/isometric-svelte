@@ -4,7 +4,7 @@
 
 Isometric is a component library and showcase for Svelte 5, Tailwind 4 and shadcn-svelte, drawn in three tones. Every surface is a face of a solid: the top is lightest, the right-facing side is mid, the left-facing side is darkest. A page is one colour field with a little ink on it, and most of it is left empty.
 
-It has a landing page built around an interactive WebGL monument, a catalog of 63 components in ten chapters, a desktop dashboard and a phone-framed mobile app. Light mode is the default; there is a dark mode and six palettes (sun, ember, lagoon, dusk, moss, coral) that re-tint the whole system, the monument's sun included.
+It has a landing page built around an interactive WebGL monument, a catalog of 64 components in ten chapters, a desktop dashboard and a phone-framed mobile app. Light mode is the default; there is a dark mode and six palettes (sun, ember, lagoon, dusk, moss, coral) that re-tint the whole system, the monument's sun included.
 
 ## Tech Stack
 

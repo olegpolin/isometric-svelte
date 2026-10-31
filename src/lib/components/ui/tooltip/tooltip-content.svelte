@@ -28,7 +28,7 @@
 		{sideOffset}
 		{side}
 		class={cn(
-			"z-50 inline-flex w-fit max-w-xs items-center gap-1.5 rounded-md bg-foreground px-2 py-1 text-xs text-background origin-(--bits-tooltip-content-transform-origin) duration-(--dur-2) ease-out data-open:animate-in data-open:fade-in-0 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-closed:animate-out data-closed:fade-out-0 has-data-[slot=kbd]:pe-1 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50",
+			"z-50 inline-flex w-fit max-w-xs items-center gap-1.5 rounded-md bg-foreground px-2 py-1 text-xs text-background origin-(--bits-tooltip-content-transform-origin) duration-(--dur-2) ease-out data-[state=instant-open]:animate-in data-[state=instant-open]:fade-in-0 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 has-data-[slot=kbd]:pe-1 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50",
 			className
 		)}
 		{...restProps}

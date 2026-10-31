@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { mode, theme } from 'mode-watcher';
+	import { mode } from 'mode-watcher';
 	import { prefersReducedMotion } from 'svelte/motion';
 	import { Button } from '#lib/components/ui/button/index.js';
 	import { cn } from '#lib/utils.js';
@@ -16,13 +16,22 @@
 	 */
 	let palette = $state<ScenePalette>();
 
-	// Re-read the scene tones whenever the mode or palette changes (the CSS has already updated).
+	// Read the scene tones once, then again whenever mode-watcher writes `class` or `data-theme`
+	// on the document element. It writes them a frame after its state changes, so watching the
+	// attributes (rather than `mode` and `theme`) is what keeps the sun on the current palette.
 	$effect(() => {
-		void mode.current;
-		void theme.current;
-		import('#lib/scene/index.js').then(({ readScenePalette }) => {
-			palette = readScenePalette();
-		});
+		let cancelled = false;
+		const read = () =>
+			import('#lib/scene/index.js').then(({ readScenePalette }) => {
+				if (!cancelled) palette = readScenePalette();
+			});
+		read();
+		const observer = new MutationObserver(read);
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+		return () => {
+			cancelled = true;
+			observer.disconnect();
+		};
 	});
 
 	let night = $derived(mode.current === 'dark');
@@ -63,6 +72,7 @@
 	/** The disc fades in through the middle of the move. */
 	let sunOpacity = $derived(night ? 1 : smooth((progress - 0.3) / 0.4));
 	let flat = $derived(progress > 0.5);
+	let done = $derived(progress >= 1);
 	let fieldColor = $derived(
 		night
 			? 'var(--background)'
@@ -71,8 +81,10 @@
 
 	$effect(() => {
 		heroState.flat = flat;
+		heroState.done = done;
 		return () => {
 			heroState.flat = false;
+			heroState.done = false;
 		};
 	});
 </script>
@@ -120,7 +132,7 @@
 					<h1 id="hero-title" class="type-display">Isometric</h1>
 				</div>
 				<p class="max-w-[46ch] text-sm sm:text-base lg:text-lg">
-					A component library drawn in three tones. Sixty-three components for Svelte, every one
+					A component library drawn in three tones. Sixty-four components for Svelte, every one
 					restyled at the source: flat faces lit from the upper left, one colour per view, and room
 					left empty on purpose.
 				</p>
