@@ -46,4 +46,4 @@ Each catalog chapter is a route at `src/routes/(app)/components/<slug>/+page.sve
 
 ## Verification (required)
 
-Open the page in the Browser pane (`preview_start` with the "dev" config; create your own tab with `tabs_create` and pass its `tabId` to every browser call; never close tabs you did not create). Check at desktop width and at 390 px. Switch dark mode on with `document.documentElement.classList.add('dark')` and try `document.documentElement.dataset.theme = 'dusk'` through `javascript_tool`. Open every overlay once. Read console errors. Run `npx @sveltejs/mcp svelte-autofixer` on the page and `npm run check`; fix every error in your files. Do not commit.
+Start `npm run dev` and open the page in the browser. Check at desktop width and at 390 px. Check light and dark mode and at least two palettes, switched from the theme menu. Open every overlay once. Read console errors. Run `npx @sveltejs/mcp svelte-autofixer` on the page and `npm run check`; fix every error in your files. Do not commit.

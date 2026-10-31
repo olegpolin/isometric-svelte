@@ -17,7 +17,10 @@
 
 	/** Over the hero's flat view the field is paper, so the header reads as if it were not overlaid. */
 	let overlay = $derived(overlayProp && !heroState.flat);
+	/** The landing header always pulls the page up underneath it, so the layout never shifts. */
 	let floating = $derived(overlayProp);
+	/** It gains its background and hairline once the reader has scrolled through the hero. */
+	let solid = $derived(!overlayProp || heroState.done);
 
 	const destinations = [
 		{ href: '/components', label: 'Components' },
@@ -34,9 +37,9 @@
 <header
 	data-slot="site-header"
 	class={cn(
-		'z-40 w-full',
-		floating ? '-mb-14' : 'bg-background/95 border-border border-b',
-		'sticky top-0',
+		'sticky top-0 z-40 w-full transition-[background-color,border-color] duration-(--dur-2) ease-out',
+		floating && '-mb-14',
+		solid ? 'bg-background/95 border-border border-b' : 'border-b border-transparent',
 		overlay ? 'text-field-foreground' : 'text-foreground'
 	)}
 >
