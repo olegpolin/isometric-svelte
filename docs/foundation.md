@@ -45,6 +45,8 @@ Each palette sets `--primary`, `--primary-foreground`, `--signal` (a second, spa
 | `moss` | `oklch(0.779 0.199 153)` | ink | blossom `oklch(0.738 0.162 14)` | primary |
 | `coral` | `oklch(0.738 0.162 14)` | ink | periwinkle `oklch(0.60 0.12 273)` | primary |
 
+In dark mode `ember` and `dusk` lift their primary (`oklch(0.64 0.2 27)` and `oklch(0.78 0.08 273)`) and put ink on it instead of paper, so the pair keeps its contrast on the night field.
+
 Rules of use:
 
 - `--primary` is for the primary action on a view and for the current-location marker. It should cover 1-5% of the pixels of a dense page.
