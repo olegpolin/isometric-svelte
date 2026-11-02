@@ -148,6 +148,7 @@
 	--signal: oklch(0.488 0.156 260);
 	--signal-foreground: oklch(0.975 0.012 95);
 }
+:root.dark[data-theme='sun'],
 .dark [data-theme='sun'] {
 	--primary: oklch(0.87 0.17 92);
 	--signal: oklch(0.72 0.12 260);
@@ -172,6 +173,7 @@
 :root.dark[data-theme='ember'],
 .dark [data-theme='ember'] {
 	--primary: oklch(0.64 0.2 27);
+	--primary-foreground: oklch(0.21 0.028 212);
 	--destructive: oklch(0.8 0.12 30);
 	--destructive-foreground: oklch(0.21 0.028 212);
 	--signal: oklch(0.886 0.155 91);
